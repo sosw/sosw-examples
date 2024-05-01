@@ -1,0 +1,62 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: Event bus to DDb www-sosw-form-records
+
+Parameters:
+  CustomFunctionName:
+    Type: String
+    Default: web_form_processor
+  CustomTableName:
+    Type: String
+    Default: www_sosw_form_records
+  Stage:
+    Type: String
+    Default: dev
+
+Conditions:
+  isProd: !Equals [ !Ref Stage, prod ]
+
+Resources:
+  LambdaWebFormProcessor:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !If [ isProd, !Sub "${CustomFunctionName}", !Sub "${Stage}_${CustomFunctionName}" ]
+      CodeUri: src/
+      Description: Event bus to DDb www_sosw_form_records
+      Handler: app.lambda_handler
+      MemorySize: 256
+      PackageType: Zip
+      Runtime: python3.11
+      Timeout: 3
+      Tracing: Active
+
+      Events:
+        Trigger:
+          Type: EventBridgeRule
+          Properties:
+            EventBusName: 'default'
+            Pattern:
+              source:
+                - 'ApiGw'
+              detail-type:
+                - 'www-form-apply'
+                - 'www-form-contact-us'
+                - 'www-form-event-registration'
+                - 'www-form-event-testcloud'
+      Policies:
+        - SNSPublishMessagePolicy:
+            TopicName: !If [ isProd, "web-forms-sosw", !Sub "${Stage}-web-forms-sosw" ]
+        - DynamoDBCrudPolicy:
+            TableName: !If [ isProd, !Sub "${CustomTableName}", !Sub "${Stage}_${CustomTableName}" ]
+      Layers:
+        - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:SOSW_LAYER_PLACEHOLDER"
+      Tags:
+        Env: !Ref Stage
+
+  FunctionResourcePermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      Principal: events.amazonaws.com
+      FunctionName: !Ref LambdaWebFormProcessor
+      SourceArn: !Sub 'arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*'
