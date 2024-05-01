@@ -1,8 +1,5 @@
 import os
-from typing import TextIO
-
 import boto3
-import yaml
 
 client = boto3.client('lambda')
 layer_change_key = 'SOSW_LAYER_PLACEHOLDER'
@@ -30,11 +27,12 @@ def change_lambda_layer_version(response: dict, change_key: str, resources_to_ch
     print(f"Layer version: {layer_version}")
     print(f"Change key: {change_key}")
     # for root, dirs, files in os.walk('.'): # Use it only if you need scan files in all repository
-    for file in os.listdir("."):
+    script_dir = os.path.dirname(__file__)
+    for file in os.listdir(script_dir):
         if file.endswith('.yaml'):
             # file_path = os.path.join(root, file) # Use it only if you need scan files in all repository
             # for file in files:
-            file_path = os.path.join('.', file)
+            file_path = os.path.join(script_dir, file)
 
             with open(file_path, 'r') as f:
                 data = f.read()
