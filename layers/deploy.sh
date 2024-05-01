@@ -2,12 +2,12 @@
 set -e
 
 # Change ACCOUNT_ID and S3 bucket name appropriately.
-ACCOUNT_ID=[YOUR_ACCOUNT_ID] #You need to change YOUR_ACCOUNT_ID with your actual account id.
-BUCKET_NAME="app-control-$ACCOUNT_ID"
+ACCOUNT_ID=YOUR_ACCOUNT_ID #You need to change YOUR_ACCOUNT_ID with your actual account id.
+BUCKET_NAME=app-control-$ACCOUNT_ID
 
 NAME=sosw
 ORGANIZATION=$NAME
-PROFILE=ngr-926629045956
+PROFILE=default
 
 HELPMSG="USAGE: ./deploy.sh [-v branch] [-p profile]
 Deploys sosw layer. Installs sosw from latest pip version, or from a specific branch if you use -v.\n
@@ -37,7 +37,7 @@ else
     pip3 install $NAME --no-dependencies -t $NAME/python/
 fi
 
-# Package other (non-sosw) reqired libraries
+# Package other (non-sosw) required libraries
 pip3 install aws_lambda_powertools -t $NAME/python/
 pip3 install aws_xray_sdk -t $NAME/python/
 pip3 install bson --no-dependencies -t $NAME/python/
