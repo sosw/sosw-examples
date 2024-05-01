@@ -10,6 +10,8 @@ Parameters:
 Resources:
   SoswLayer:
     Type: "AWS::Lambda::LayerVersion"
+    DeletionPolicy: Retain
+    UpdateReplacePolicy: Retain
     Description: "sosw, bson, aws_lambda_powertools, aws_xray_sdk, requests"
     Properties:
       CompatibleRuntimes:
