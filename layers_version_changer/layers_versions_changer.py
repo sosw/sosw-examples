@@ -1,6 +1,8 @@
 import os
 import boto3
 
+__author__ = "Valentin Bakin"
+
 client = boto3.client('lambda')
 layer_change_key = 'SOSW_LAYER_PLACEHOLDER'
 test_layer_name = "sosw"

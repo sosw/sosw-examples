@@ -33,5 +33,3 @@ Resources:
         - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:SOSW_LAYER_PLACEHOLDER"
       Tags:
         Env: !Ref Stage
-
-

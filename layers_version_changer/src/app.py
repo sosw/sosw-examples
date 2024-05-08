@@ -29,16 +29,3 @@ class Processor(SoswProcessor):
 
 global_vars = LambdaGlobals()
 lambda_handler = get_lambda_handler(Processor, global_vars)
-
-
-
-
-
-
-
-
-
-
-
-global_vars = LambdaGlobals()
-lambda_handler = get_lambda_handler(Processor, global_vars)
