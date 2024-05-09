@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+  width: 64px;
+  height: 64px;
+}
+.App-logo-text {
+  height: 40vmin;
+  pointer-events: none;
+  width: 128px;
+  height: 64px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c39;
+  min-height: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+body {
+  background: linear-gradient(to right, #f5f5f5, #e0e0e0);
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+.App-content {
+  max-width: 30rem;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20px;
+  background-color: #c0ca33;
+  margin: 20px auto;
+}
+.h1{
+    color: white;
+}
+.input-container {
+  display: flex;
+  border-radius: 10px;
+  align-items: center;
+}
+
+.table-name-label {
+  margin-right: 10px;
+  color: white;
+}
+.btn-table {
+  border-radius: 50px;
+  font-weight: bold;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  background-color: white;
+  color: #c0ca33;
+  border: 2px solid #c0ca33;
+  cursor: pointer; /* Add cursor pointer */
+  margin-top: 20px; /* Add top margin */
+}
+
+.btn-table:hover {
+  background-color: #f0f5b7; /* Change background color on hover */
+  background-color: #f0f5b7; /* Change border color on hover */
+}
+
+.btn-table:active {
+  background-color: #9bae26; /* Change background color when clicked */
+  background-color: #9bae26; /* Change border color when clicked */
+}
