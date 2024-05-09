@@ -63,17 +63,14 @@ class Processor(SoswProcessor):
         image.save(output, format="WEBP")
         return output.getvalue()
 
-
     def list_s3_objects(self, bucket_name, path):
         response = self.s3_client.list_objects_v2(Bucket=bucket_name, Prefix=path)
         logger.info(response.get('Contents', []))
         return response.get('Contents', [])
 
-
     def download_from_s3(self, bucket_name, key):
         response = self.s3_client.get_object(Bucket=bucket_name, Key=key)
         return response['Body'].read()
-
 
     def upload_to_s3(self, bucket_name, key, data):
         self.s3_client.put_object(Bucket=bucket_name, Key=key, Body=data)
