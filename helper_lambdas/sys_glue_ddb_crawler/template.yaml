@@ -41,7 +41,7 @@ Resources:
                 - "dynamodb:List*"
               Resource: "*"
       Layers:
-        - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:2"
+        - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:SOSW_LAYER_PLACEHOLDER"
 
   FunctionResourcePermission:
     Type: 'AWS::Lambda::Permission'
