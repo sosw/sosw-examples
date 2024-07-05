@@ -1,0 +1,52 @@
+AWSTemplateFormatVersion: 2010-09-09
+Transform: AWS::Serverless-2016-10-31
+Description: DDB Glue crawler
+
+Parameters:
+  CustomFunctionName:
+    Type: String
+    Default: sys-glue-ddb-crawler
+
+Resources:
+  LambdaSysGlueDdbCrawler:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref CustomFunctionName
+      CodeUri: src/
+      Description: DDB Glue crawler
+      Handler: app.lambda_handler
+      MemorySize: 256
+      PackageType: Zip
+      Runtime: python3.11
+      Timeout: 900
+      Tracing: Active
+
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action:
+                - "glue:*"
+                - "iam:GetRole"
+                - "iam:CreateRole"
+                - "iam:PutRolePolicy"
+                - "iam:AttachRolePolicy"
+              Resource: "*"
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: "Allow"
+              Action:
+                - "dynamodb:Describe*"
+                - "dynamodb:Read*"
+                - "dynamodb:List*"
+              Resource: "*"
+      Layers:
+        - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:2"
+
+  FunctionResourcePermission:
+    Type: 'AWS::Lambda::Permission'
+    Properties:
+      Action: 'lambda:InvokeFunction'
+      Principal: events.amazonaws.com
+      FunctionName: !Ref LambdaSysGlueDdbCrawler
+      SourceArn: !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:*/*'
