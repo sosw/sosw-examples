@@ -20,7 +20,11 @@ Resources:
       Runtime: python3.11
       Timeout: 900
       Tracing: Active
-
+      Events:
+        ScheduleEvent:
+          Type: ScheduleV2
+          Properties:
+            ScheduleExpression: "rate(1 day)"
       Policies:
         - Version: "2012-10-17"
           Statement:
@@ -42,11 +46,3 @@ Resources:
               Resource: "*"
       Layers:
         - !Sub "arn:aws:lambda:${AWS::Region}:${AWS::AccountId}:layer:sosw:SOSW_LAYER_PLACEHOLDER"
-
-  FunctionResourcePermission:
-    Type: 'AWS::Lambda::Permission'
-    Properties:
-      Action: 'lambda:InvokeFunction'
-      Principal: events.amazonaws.com
-      FunctionName: !Ref LambdaSysGlueDdbCrawler
-      SourceArn: !Sub 'arn:aws:events:${AWS::Region}:${AWS::AccountId}:*/*'
