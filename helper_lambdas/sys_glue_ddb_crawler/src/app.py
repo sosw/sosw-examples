@@ -132,8 +132,11 @@ class Processor(SoswProcessor):
 					"Effect":   "Allow",
 					"Action":   [
 						"dynamodb:Describe*",
+						"dynamodb:Get*",
+						"dynamodb:BatchGet*",
+						"dynamodb:Query",
+						"dynamodb:Scan",
 						"dynamodb:List*",
-						"dynamodb:Read*",
 					],
 					"Resource": f"arn:aws:dynamodb:{self._region}:{self._account}:table/{table_name}"
 				}
