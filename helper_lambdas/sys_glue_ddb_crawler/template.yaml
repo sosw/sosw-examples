@@ -33,6 +33,7 @@ Resources:
                 - "glue:*"
                 - "iam:GetRole"
                 - "iam:CreateRole"
+                - "iam:PassRole"
                 - "iam:PutRolePolicy"
                 - "iam:AttachRolePolicy"
               Resource: "*"
@@ -42,6 +43,7 @@ Resources:
               Action:
                 - "dynamodb:Describe*"
                 - "dynamodb:Read*"
+                - "dynamodb:Query"
                 - "dynamodb:List*"
               Resource: "*"
       Layers:

@@ -6,7 +6,11 @@ in your AWS Glue Data Catalog.
 
 `See full documentation <https://docs.sosw.app/tools/ddb_glue_crawler.html>`_
 
-To install this function clone the repository, go to the relevant directory and use SAM:
+To install this function clone the repository, go to the relevant directory and use SAM.
+
+..  warning::
+
+    Replace the ``SOSW_LAYER_PLACEHOLDER`` with the latest version of your ``sosw`` Layer.
 
 ..  code-block:: bash
 
